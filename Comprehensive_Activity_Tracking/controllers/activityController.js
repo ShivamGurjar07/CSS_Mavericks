@@ -1,4 +1,4 @@
-const Activity = require("../models/Activity");
+const Activity = require("../models/ExportsActivity");
 
 const logActivity = async (req, res) => {
   try {
@@ -39,3 +39,5 @@ const getAllActivities = async (req, res) => {
 };
 
 module.exports = { logActivity, logMultipleActivities, getAllActivities };
+
+// merge done
