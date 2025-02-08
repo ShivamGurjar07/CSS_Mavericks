@@ -38,6 +38,10 @@ const getAllActivities = async (req, res) => {
   }
 };
 
-module.exports = { logActivity, logMultipleActivities, getAllActivities };
+module.exports = {
+  logActivity,
+  logMultipleActivities,
+  getAllActivities,
+};
 
 // merge done
