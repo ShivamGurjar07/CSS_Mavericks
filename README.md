@@ -33,14 +33,145 @@ Recommendations Engine:
 
 Suggestions for goal adjustments to foster better engagement and health improvement.
 
+This is the API documentation for the Fitness Tracking and Analytics App. Below are the endpoints for all the routes, along with their HTTP methods and use cases.
 
-<h2>API Endpoints</h2>
+---
 
+## 1. /api/activities (Activity Routes)
 
+| HTTP Method | Endpoint                  | Use Case                                                                  |
+|-------------|---------------------------|---------------------------------------------------------------------------|
+| POST        | /api/activities         | Log a single activity (e.g., running, cycling)                           |
+| POST        | /api/activities/batch   | Log multiple activities in one request                                   |
+| GET         | /api/activities         | Fetch all logged activities for the user                                 |
+| GET         | /api/activities/search  | Search activities based on date, type, or metrics                        |
+| GET         | /api/activities/summarized | Get summarized activity statistics (e.g., total distance covered)      |
 
-<h2>Technology Stack</h2>
+---
 
-- Node.js
-- Express.js
-- MongoDB
-- Other libraries/modules
+## 2. /api/exports (Export Routes)
+
+| HTTP Method | Endpoint           | Use Case                                                                  |
+|-------------|---------------------|---------------------------------------------------------------------------|
+| GET         | /api/exports/csv  | Export activity data in CSV format                                        |
+| GET         | /api/exports/json | Export activity data in JSON format                                       |
+| GET         | /api/exports/xml  | Export activity data in XML format                                        |
+
+---
+
+## 3. /api/goals (Goal Routes)
+
+| HTTP Method | Endpoint                         | Use Case                                                                  |
+|-------------|-----------------------------------|---------------------------------------------------------------------------|
+| POST        | /api/goals                     | Create a fitness goal for the user (e.g., daily steps target)            |
+| GET         | /api/goals/:userId             | Retrieve all goals set by a specific user                                 |
+| GET         | /api/goals/recommendations/:userId | Get personalized fitness goal recommendations                        |
+
+---
+
+## 4. /api/auth (Auth Routes)
+
+| HTTP Method | Endpoint                         | Use Case                                                                  |
+|-------------|-----------------------------------|---------------------------------------------------------------------------|
+| GET         | /api/auth/google               | Authenticate user via Google OAuth                                        |
+| GET         | /api/auth/google/callback      | Handle callback from Google and generate JWT token                       |
+
+---
+
+## 5. /api/search (Search Activity Routes)
+
+| HTTP Method | Endpoint                         | Use Case                                                                  |
+|-------------|-----------------------------------|---------------------------------------------------------------------------|
+| GET         | /api/search/search             | Search activities based on type, date, or user metrics                   |
+| GET         | /api/search/summarized         | Get summarized activities based on filters                               |
+
+---
+
+## 6. /api/feedback (Feedback Routes)
+
+| HTTP Method | Endpoint                         | Use Case                                                                  |
+|-------------|-----------------------------------|---------------------------------------------------------------------------|
+| POST        | /api/feedback/submit           | Submit user feedback on the app or services                               |
+| GET         | /api/feedback/all              | Retrieve all submitted feedback                                           |
+| GET         | /api/feedback/analytics        | Analyze feature usage and feedback trends                                 |
+
+---
+
+### Example Request and Response
+
+1. *Log an Activity*
+   - Endpoint: POST /api/activities
+   - Request Body:
+     json
+     {
+       "userId": "shivam123",
+       "activityType": "running",
+       "distance": 5.0,
+       "duration": 30
+     }
+     
+   - Response:
+     json
+     {
+       "message": "Activity logged successfully.",
+       "activity": {
+         "id": "12345",
+         "userId": "shivam123",
+         "activityType": "running",
+         "distance": 5.0,
+         "duration": 30,
+         "date": "2025-02-05T10:00:00Z"
+       }
+     }
+     
+
+2. *Export Data as JSON*
+   - Endpoint: GET /api/exports/json
+   - Response:
+     json
+     [
+       {
+         "activityType": "running",
+         "distance": 5.0,
+         "duration": 30,
+         "caloriesBurned": 300
+       }
+     ]
+     
+
+3. *Set a Goal*
+   - Endpoint: POST /api/goals
+   - Request Body:
+     json
+     {
+       "userId": "shivam123",
+       "type": "dailySteps",
+       "target": 10000
+     }
+     
+   - Response:
+     json
+     {
+       "message": "Goal created successfully.",
+       "goal": {
+         "id": "goal123",
+         "userId": "shivam123",
+         "type": "dailySteps",
+         "target": 10000,
+         "status": "active"
+       }
+     }
+     
+
+---
+
+### Dependencies
+
+- *Node.js* and *npm* (backend runtime environment)
+- *Express* (web framework)
+- *Mongoose* (MongoDB object modeling)
+- *Body-parser* (request parsing)
+- *dotenv* (environment variable management)
+- *jsonwebtoken* (authentication via JWT)
+- *passport* (OAuth authentication)
+- *nodemailer* (for notifications)
